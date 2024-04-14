@@ -1,6 +1,6 @@
-Task TDL
+# Tasker TDL
 
-Properties:
+## Properties:
 
     tasker.taskInput - textbox input of user task
     tasker.taskList - <ul> </ul> parent of list items
@@ -8,7 +8,7 @@ Properties:
     tasker.addButton - button to add new user task
     tasker.errorMessage - display error message
 
-Methods:
+## Methods:
 
     tasker.selectElements() - Create properties by selecting document objects elements with document.getElementById() method
     	Create tasker.taskInput property by selecting "input-task" element
