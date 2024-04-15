@@ -37,5 +37,31 @@ const tasker = {
     taskListItem.appendChild(taskCheckbox);
     taskListItem.appendChild(taskValue);
     taskListItem.appendChild(taskButton);
+
+    //adding tasks to task list
+    this.taskList.appendChild(taskListItem);
   },
+
+//display error
+error: function() {
+    this.errorMessage.style.display = "block";
+  },
+  addTask: function() {
+    let taskValue = this.taskInput.value;
+    this.errorMessage.style.display = "none";
+    
+    if(taskValue === ""){
+      this.error();
+    }
+    else {
+      this.buildTask();
+      this.taskInput.value = "";
+      this.scanTaskList();
+    }
+  },
+  enterKey: function(event){
+    if (event.keyCode === 13 || event.which === 13 ){
+      this.addTask();
+    }
+
 };
