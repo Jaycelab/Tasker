@@ -1,13 +1,20 @@
 //overall task object
 const tasker = {
+    //construct
+    construct: function() {
+    this.selectElements();
+    this.bindEvents();
+    this.scanTaskList();
+  },
   //task properties
   selectElements: function () {
-    this.taskInput = document.querySelector("#input-task");
-    this.taskList = document.querySelector("#task");
+    this.taskInput = document.getElementById("input-task");
+    this.taskList = document.getElementById("tasks");
+
     //selects all list items within parent UL
     this.taskListChildren = this.taskList.children;
-    this.addButton = document.querySelector("#add-task-btn");
-    this.errorMessage = document.querySelector("#error");
+    this.addButton = document.getElementById("add-task-btn");
+    this.errorMessage = document.getElementById("error")
   },
 
   //buildtask
@@ -28,10 +35,10 @@ const tasker = {
 
     //trash icon utilizing font awesome
     taskTrash = document.createElement("i");
-    taskTrash.setAttribute("class", "fa fa-trash");
+    taskTrash.setAttribute("class","fa fa-trash");
 
     //insert trash icon inside button using append child
-    taskButton.appendChild(taskTrash);
+   taskButton.appendChild(taskTrash);
 
     //append elements to task list
     taskListItem.appendChild(taskCheckbox);
@@ -42,11 +49,14 @@ const tasker = {
     this.taskList.appendChild(taskListItem);
   },
 
-//display error
-error: function() {
+    //error check 
+    error: function() {
     this.errorMessage.style.display = "block";
   },
-  addTask: function() {
+
+
+    //add task
+    addTask: function() {
     let taskValue = this.taskInput.value;
     this.errorMessage.style.display = "none";
     
@@ -58,10 +68,6 @@ error: function() {
       this.taskInput.value = "";
       this.scanTaskList();
     }
-  },
-  enterKey: function(event){
-    if (event.keyCode === 13 || event.which === 13 ){
-      this.addTask();
-    }
-
 };
+
+
