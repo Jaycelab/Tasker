@@ -6,17 +6,18 @@ const tasker = {
     this.bindEvents();
     this.scanTaskList();
   },
+
   //task properties
   selectElements: function () {
-    this.taskInput = document.querySelector("#input-task");
-    this.taskList = document.querySelector("#tasks");
+    this.taskInput = document.getElementById("input-task");
+    this.taskList = document.getElementById("tasks");
 
     //selects all list items within parent UL
     this.taskListChildren = this.taskList.children;
     //add tasks button
-    this.addButton = document.querySelector("#add-task-btn");
+    this.addButton = document.getElementById("add-task-btn");
     //error message
-    this.errorMessage = document.querySelector("#error");
+    this.errorMessage = document.getElementById("error");
   },
 
   //buildtask
@@ -62,39 +63,29 @@ const tasker = {
     this.errorMessage.style.display = "none";
 
     //test if task value empty string , run error func
-    if(taskValue === "") {
+    if (taskValue === "") {
       this.error();
     } else {
-      //else run buildTask & set task input to empty string  
-      this.buildtask();
+      //else run buildTask & set task input to empty string
+      this.buildTask();
       this.taskInput.value = "";
-      //this.scanTaskList();
+      this.scanTaskList();
     }
   },
 
-  //enterKey method
-    enterKey: function(event){
-    if (event.keyCode === 13 || event.which === 13 ){
+  enterKey: function (event) {
+    if (event.keyCode === 13 || event.which === 13) {
       this.addTask();
     }
   },
 
-  //scanTaskList method
-  scanTaskList: function() {
-    let taskListItem, checkBox, deleteButton;
+  //bind events bind methods to an event
+  bindEvents: function () {
+    //add click event to button. Passing this as param for addTask to addButton on cick
+    //whenever addButton is clicked, add Task will be called and user task added to list
+    this.addButton.onclick = this.addTask.bind(this);
 
-    //loop through all list elements
-    for (i = 0; i < this.taskListChildren.length; i++){
-      taskListItem = this.taskListChildren[i];
-      //select checkbox and delete button
-      checkBox = taskListItem.getElementsByTagName("input")[0];
-      deleteButton = taskListItem.getElementsByTagName("button")[0];
-
-      //bind onclick event to the checkbox
-      checkBox.onclick = this.completeTask.bind(this, taskListItem, checkBox);
-
-      //add click event to the delete button
-      deleteButton.onclick = this.deleteTask.bind(this, i);
-    }
+    //adding enter key to task input
+    this.taskInput.onkeypress = this.enterKey.bind(this);
   },
 };
