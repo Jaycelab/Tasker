@@ -88,4 +88,32 @@ const tasker = {
     //adding enter key to task input
     this.taskInput.onkeypress = this.enterKey.bind(this);
   },
+  //adding onclick events to checkbox to mark tasks complete/incomplete
+  //delete button to remove tasks from list
+  scanTaskList: function () {
+    let taskListItem, checkBox, deleteButton;
+
+    //looping through list of elements using taskListChildren arr
+    for (i = 0; i < this.taskListChildren.length; i++) {
+      taskListItem = this.taskListChildren[i];
+
+      //checkbox , s in elementtagname
+      checkBox = taskListItem.getElementsByTagName("input")[0];
+      //delete button
+      deleteButton = taskListItem.getElementsByTagName("button")[0];
+
+      //binding checkbox to on click
+      //checkBox.onclick = this.completeTask.bind(this, taskListItem, checkBox);
+
+      //binding delete to on click
+      deleteButton.onclick = this.deleteTask.bind(this, i);
+    }
+  },
+
+  //delete task passing arr counter as argument with remove method
+  deleteTask: function (i) {
+    this.taskListChildren[i].remove();
+    //calls scanTaskList after each removal
+    this.scanTaskList();
+  },
 };
