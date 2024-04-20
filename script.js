@@ -1,6 +1,6 @@
 //overall task object
 const tasker = {
-  //construct
+  //construct method to automate methods below
   construct: function () {
     this.selectElements();
     this.bindEvents();
@@ -103,7 +103,7 @@ const tasker = {
       deleteButton = taskListItem.getElementsByTagName("button")[0];
 
       //binding checkbox to on click
-      //checkBox.onclick = this.completeTask.bind(this, taskListItem, checkBox);
+      checkBox.onclick = this.completeTask.bind(this, taskListItem, checkBox);
 
       //binding delete to on click
       deleteButton.onclick = this.deleteTask.bind(this, i);
@@ -115,5 +115,20 @@ const tasker = {
     this.taskListChildren[i].remove();
     //calls scanTaskList after each removal
     this.scanTaskList();
+  },
+
+  //complete task method. marks tasks complete once clicked using if to verify if checked
+  completeTask: function (taskListItem, checkBox) {
+    if (checkBox.checked) {
+      taskListItem.className = "task completed";
+    } else {
+      //calls incomplete task method if false
+      this.incompleteTask(taskListItem);
+    }
+  },
+
+  //incomplete task , marks tasks classname to task
+  incompleteTask: function (taskListItem) {
+    taskListItem.className = "task";
   },
 };
